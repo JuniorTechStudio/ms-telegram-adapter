@@ -14,8 +14,8 @@ public class Controller {
 
     private final MessageService messageService;
 
-    @PostMapping("/{text}")
-    public void sendMessage(@PathVariable String text){
+    @PostMapping("/message/{text}")
+    public void sendMessageToPavlik(@PathVariable String text) {
         messageService.sendMessage("1037426316", text, false);
     }
 }
