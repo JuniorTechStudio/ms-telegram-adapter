@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ms-telegram-adapter
+  cloud:
+    config:
+      uri: http://192.168.88.13:8001
