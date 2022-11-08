@@ -1,5 +1,7 @@
 package com.jts.subscription.telegram.service;
 
+import com.jts.subscription.telegram.data.dto.PreparedSubscriptionContent;
+import com.jts.subscription.telegram.data.dto.TelegramSendContentRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -119,6 +121,15 @@ public class MessageService {
             bot.execute(msg);
         } catch (TelegramApiException e) {
             log.info("{}.", e.getMessage());
+        }
+    }
+
+    public void sendContent(TelegramSendContentRequest telegramSendContentRequest) {
+        List<PreparedSubscriptionContent> preparedSubscriptionContentList = telegramSendContentRequest.getPreparedSubscriptionContentList();
+        for(PreparedSubscriptionContent content : preparedSubscriptionContentList) {
+            String id = content.getTelegramId();
+            String contentString = content.getContent();
+            sendMessage(id, contentString, false);
         }
     }
 }

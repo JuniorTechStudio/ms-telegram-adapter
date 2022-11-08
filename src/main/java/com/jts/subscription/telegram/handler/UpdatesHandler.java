@@ -1,7 +1,6 @@
 package com.jts.subscription.telegram.handler;
 
 import com.jts.subscription.telegram.client.UserClient;
-import com.jts.subscription.telegram.data.dto.SystemUser;
 import com.jts.subscription.telegram.data.mapper.SystemUserMapper;
 import com.jts.subscription.telegram.service.MessageService;
 import lombok.RequiredArgsConstructor;
