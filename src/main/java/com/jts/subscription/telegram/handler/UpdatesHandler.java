@@ -1,8 +1,10 @@
 package com.jts.subscription.telegram.handler;
 
+import com.jts.subscription.telegram.client.SubscriptionClient;
 import com.jts.subscription.telegram.client.UserClient;
-import com.jts.subscription.telegram.data.mapper.SystemUserMapper;
+import com.jts.subscription.telegram.data.dto.SubscriptionUserInfoRequest;
 import com.jts.subscription.telegram.service.MessageService;
+import com.jts.subscription.telegram.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +20,10 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 public class UpdatesHandler extends TelegramLongPollingBot {
-
-    private final UserClient userClient;
-    private final SystemUserMapper systemUserMapper;
     private final MessageService messageService;
+    private final UserService userService;
+    private final UserClient userClient;
+    private final SubscriptionClient subscriptionClient;
 
     @Value("${bot.name}")
     private String botUsername;
@@ -33,7 +35,7 @@ public class UpdatesHandler extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-        if(Objects.nonNull(update.getMessage()) && update.getMessage().hasText()) {
+        if (Objects.nonNull(update.getMessage()) && update.getMessage().hasText()) {
 
             String chatId = update.getMessage().getChatId().toString();
             String name = update.getMessage().getFrom().getFirstName();
@@ -41,12 +43,11 @@ public class UpdatesHandler extends TelegramLongPollingBot {
 
             log.info("{} сказал: {}", name, update.getMessage().getText());
 
-            switch(update.getMessage().getText()) {
+            switch (update.getMessage().getText()) {
                 case "/start":
                 {
                     //код для /start
-                    //SystemUser newUser = systemUserMapper.mapToSystemUser(user);
-                    //userClient.saveUser(newUser);
+                    userService.createUser(user);
                     messageService.sendStartMessage(chatId, false);
                     break;
                 }
@@ -79,7 +80,14 @@ public class UpdatesHandler extends TelegramLongPollingBot {
             log.info("{} Выбрал тему {}", name, callBackData);
             switch (callBackData) {
                 case "theme_1_button" : {
-                    //код для кнопки
+                    //код для кнопки Java
+                    SubscriptionUserInfoRequest subscriptionUserInfoRequest = SubscriptionUserInfoRequest.builder()
+                            .userId(userClient.getUserIdByTelegramId(chatId))
+                            .subscriptionTitle("Java")
+                            .telegramId(chatId)
+                            .build();
+                    subscriptionClient.saveSubscriptionUserInfo(subscriptionUserInfoRequest);
+
                     EditMessageText msg = new EditMessageText();
                     msg.setChatId(chatId);
                     msg.setText("Вы выбрали тему 'Java'");
@@ -88,7 +96,14 @@ public class UpdatesHandler extends TelegramLongPollingBot {
                     break;
                 }
                 case "theme_2_button" : {
-                    //код для кнопки
+                    //код для кнопки English
+                    SubscriptionUserInfoRequest subscriptionUserInfoRequest = SubscriptionUserInfoRequest.builder()
+                            .userId(userClient.getUserIdByTelegramId(chatId))
+                            .subscriptionTitle("English")
+                            .telegramId(chatId)
+                            .build();
+                    subscriptionClient.saveSubscriptionUserInfo(subscriptionUserInfoRequest);
+
                     EditMessageText msg = new EditMessageText();
                     msg.setChatId(chatId);
                     msg.setText("Вы выбрали тему 'English'");
@@ -97,7 +112,14 @@ public class UpdatesHandler extends TelegramLongPollingBot {
                     break;
                 }
                 case "theme_3_button" : {
-                    //код для кнопки
+                    //код для кнопки SQL
+                    SubscriptionUserInfoRequest subscriptionUserInfoRequest = SubscriptionUserInfoRequest.builder()
+                            .userId(userClient.getUserIdByTelegramId(chatId))
+                            .subscriptionTitle("SQL")
+                            .telegramId(chatId)
+                            .build();
+                    subscriptionClient.saveSubscriptionUserInfo(subscriptionUserInfoRequest);
+
                     EditMessageText msg = new EditMessageText();
                     msg.setChatId(chatId);
                     msg.setText("Вы выбрали тему 'SQL'");
