@@ -6,14 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/JTSBot")
 @RequiredArgsConstructor
+@RequestMapping("/telegram")
 public class Controller {
 
     private final MessageService messageService;
 
-    @PostMapping("/subscription")
+    @PostMapping("/send")
     public void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequest) {
         messageService.sendContent(telegramSendContentRequest);
     }
+
 }

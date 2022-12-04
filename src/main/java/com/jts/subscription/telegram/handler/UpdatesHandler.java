@@ -44,26 +44,20 @@ public class UpdatesHandler extends TelegramLongPollingBot {
             log.info("{} сказал: {}", name, update.getMessage().getText());
 
             switch (update.getMessage().getText()) {
-                case "/start":
-                {
-                    //код для /start
+                case "/start": {
                     userService.createUser(user);
                     messageService.sendStartMessage(chatId, false);
                     break;
                 }
-                case "/stop":
-                {
-                    //код для /stop
+                case "/stop": {
                     messageService.sendMessage(chatId,"stop", false);
                     break;
                 }
                 case "/go": {
-                    // код для /go
                     messageService.sendMessage(chatId,"go", false);
                     break;
                 }
                 case "/profile": {
-                    //код для /profile
                     messageService.sendMessage(chatId,"profile", false);
                     break;
                 }

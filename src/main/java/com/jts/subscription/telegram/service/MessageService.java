@@ -25,11 +25,12 @@ public class MessageService {
 
     public void sendMessage(String id, String text, boolean disableNotification) {
         try {
-            bot.execute(SendMessage.builder()
-                    .chatId(id)
-                    .text(text)
-                    .disableNotification(disableNotification)
-                    .build()
+            bot.execute(
+                    SendMessage.builder()
+                            .chatId(id)
+                            .text(text)
+                            .disableNotification(disableNotification)
+                            .build()
             );
         } catch (TelegramApiException e) {
             log.info("{}. USER ID: {}", e.getMessage(), id);

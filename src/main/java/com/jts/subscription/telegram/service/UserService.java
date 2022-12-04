@@ -20,4 +20,5 @@ public class UserService {
         SystemUser newUser = systemUserMapper.mapToSystemUser(user);
         userClient.saveUser(newUser);
     }
+
 }

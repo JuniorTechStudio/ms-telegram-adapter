@@ -11,4 +11,5 @@ public interface SubscriptionClient {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     void saveSubscriptionUserInfo(@RequestBody SubscriptionUserInfoRequest subscriptionUserInfoRequest);
+
 }

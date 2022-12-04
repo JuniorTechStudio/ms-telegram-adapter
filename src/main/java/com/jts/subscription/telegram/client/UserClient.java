@@ -17,4 +17,5 @@ public interface UserClient {
 
     @RequestMapping(value = "/getID/{telegramId}", method = RequestMethod.GET)
     UUID getUserIdByTelegramId(@PathVariable String telegramId);
+
 }
