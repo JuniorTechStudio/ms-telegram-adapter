@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "ms-subscription", url = "localhost:8085/subscription")
+@FeignClient(name = "ms-subscription", url = "${feign.subscription.url}")
 public interface SubscriptionClient {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

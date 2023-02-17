@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "ms-users", url = "localhost:8083/users")
+@FeignClient(name = "ms-users", url = "${feign.user.url}")
 public interface UserClient {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
