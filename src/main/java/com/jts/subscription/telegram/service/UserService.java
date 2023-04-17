@@ -13,12 +13,12 @@ import org.telegram.telegrambots.meta.api.objects.User;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserClient userClient;
-    private final SystemUserMapper systemUserMapper;
+  private final UserClient userClient;
+  private final SystemUserMapper systemUserMapper;
 
-    public void createUser(User user) {
-        SystemUser newUser = systemUserMapper.mapToSystemUser(user);
-        userClient.saveUser(newUser);
-    }
+  public void createUser(User user) {
+    SystemUser newUser = systemUserMapper.mapToSystemUser(user);
+    userClient.saveUser(newUser);
+  }
 
 }

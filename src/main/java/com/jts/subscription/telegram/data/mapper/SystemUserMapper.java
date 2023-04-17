@@ -7,5 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 @Mapper(componentModel = "spring")
 public interface SystemUserMapper {
 
-    SystemUser mapToSystemUser(User user);
+  SystemUser mapToSystemUser(User user);
+
 }

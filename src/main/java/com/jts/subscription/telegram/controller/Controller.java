@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/telegram")
 public class Controller {
 
-    private final MessageService messageService;
+  private final MessageService messageService;
 
-    @PostMapping("/send")
-    public void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequest) {
-        messageService.sendContent(telegramSendContentRequest);
-    }
+  @PostMapping("/send")
+  public void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequest) {
+    messageService.sendContent(telegramSendContentRequest);
+  }
 
 }
