@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PreparedSubscriptionContent {
+public class TextToSend {
     private String telegramId;
     private String content;
 }

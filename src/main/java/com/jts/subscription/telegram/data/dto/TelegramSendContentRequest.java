@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TelegramSendContentRequest {
 
-  private List<PreparedSubscriptionContent> preparedSubscriptionContentList;
+  private List<TextToSend> textToSendList;
 
 }

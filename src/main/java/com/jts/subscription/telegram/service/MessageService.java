@@ -1,7 +1,6 @@
 package com.jts.subscription.telegram.service;
 
 import com.jts.subscription.telegram.data.dto.TelegramSendContentRequest;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
@@ -28,7 +25,8 @@ public class MessageService {
               .chatId(id)
               .text(text)
               .disableNotification(disableNotification)
-              .build());
+              .build()
+      );
     } catch (TelegramApiException e) {
       log.info("{}. USER ID: {}", e.getMessage(), id);
     }
@@ -50,12 +48,12 @@ public class MessageService {
     }
   }
 
-  public void sendContent(TelegramSendContentRequest telegramSendContentRequest) {
-    telegramSendContentRequest.getPreparedSubscriptionContentList()
-        .forEach(content -> {
+  public void sendContent(TelegramSendContentRequest telegramSendContentRequestList) {
+    telegramSendContentRequestList.getTextToSendList().forEach(content -> {
           String id = content.getTelegramId();
           String contentString = content.getContent();
           sendMessage(id, contentString, false);
         });
   }
+
 }
