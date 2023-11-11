@@ -15,7 +15,7 @@ public interface SubscriptionClient {
   @GetMapping(value = "/subscriptions")
   SubscriptionsList getAllSubscriptions();
 
-  @PostMapping("/{subscriptionId}/users")
+  @PostMapping("/subscriptions/{subscriptionId}/users")
   void subscribe(@PathVariable UUID subscriptionId, @RequestBody AddUserToSubscriptionRequest request);
   
 }

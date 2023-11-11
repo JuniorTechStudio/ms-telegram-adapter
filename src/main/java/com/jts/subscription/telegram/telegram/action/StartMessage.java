@@ -46,9 +46,9 @@ public class StartMessage implements Action {
       List<InlineKeyboardButton> buttons = new ArrayList<>();
       var button = new InlineKeyboardButton();
       String title = subscription.title();
-      UUID id = subscription.id();
+      UUID subscriptionId = subscription.id();
       button.setText(title);
-      button.setCallbackData(title + "|" + id.toString());
+      button.setCallbackData(title + ";" + subscriptionId);
       buttons.add(button);
       keyboard.add(buttons);
     });

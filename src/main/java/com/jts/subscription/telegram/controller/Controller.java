@@ -12,8 +12,8 @@ public class Controller {
   private final MessageService messageService;
 
   @PostMapping("/send")
-  void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequestList) {
-    messageService.sendContent(telegramSendContentRequestList);
+  void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequest) {
+    messageService.sendContent(telegramSendContentRequest);
   }
 
 }

@@ -1,15 +1,15 @@
 package com.jts.subscription.telegram.telegram;
 
+import static java.lang.String.format;
+
 import com.jts.subscription.telegram.client.SubscriptionClient;
-import com.jts.subscription.telegram.client.UserClient;
 import com.jts.subscription.telegram.data.dto.AddUserToSubscriptionRequest;
-import com.jts.subscription.telegram.data.dto.SubscriptionUserInfoRequest;
 import com.jts.subscription.telegram.service.MessageService;
 import com.jts.subscription.telegram.telegram.action.Action;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import static java.lang.String.format;
 
 @Slf4j
 @Component
@@ -30,14 +28,16 @@ public class UpdatesHandler extends TelegramLongPollingBot {
   private final MessageService messageService;
   private final SubscriptionClient subscriptionClient;
 
+  @Getter
   @Value("${bot.name}")
   private String botUsername;
 
+  @Getter
   @Value("${bot.token}")
   private String botToken;
 
   @Autowired
-  public void setBeans(Map<String, Action> actions) {
+  public void setActions(Map<String, Action> actions) {
     this.actions = actions;
   }
 
@@ -52,7 +52,7 @@ public class UpdatesHandler extends TelegramLongPollingBot {
       String chatId = update.getCallbackQuery().getFrom().getId().toString();
       int messageId = update.getCallbackQuery().getMessage().getMessageId();
       String callBackData = update.getCallbackQuery().getData();
-      String[] split = callBackData.split("|");
+      String[] split = callBackData.split(";");
       String title = split[0];
       UUID subscriptionId = UUID.fromString(split[1]);
 
@@ -64,14 +64,6 @@ public class UpdatesHandler extends TelegramLongPollingBot {
       message.setMessageId(messageId);
       messageService.editMessage(message);
     }
-  }
-
-  public String getBotUsername() {
-    return botUsername;
-  }
-
-  public String getBotToken() {
-    return botToken;
   }
 
 }
